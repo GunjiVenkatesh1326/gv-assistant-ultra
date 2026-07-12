@@ -1,83 +1,132 @@
 # gv-assistant-ultra
 
-A Python-first codebase containing tests and utilities for assistant-like tooling and experiments.
+A clean, test-focused Python codebase for experimenting with assistant-like tooling, safety heuristics, and demoing UI flows.
 
-> Language composition: Python (~98.4%) with a small TypeScript utility (~1.6%).
-
----
-
-## Table of Contents
-
-- [What this is](#what-this-is)
-- [Stack](#stack)
-- [Quickstart](#quickstart)
-- [How to run tests](#how-to-run-tests)
-- [Project structure (top-level)](#project-structure-top-level)
-- [How it fits together](#how-it-fits-together)
-- [Contributing](#contributing)
-- [License](#license)
+[Live Demos](/) · [Tests](#running-tests) · [Contribute](#contributing)
 
 ---
 
-## What this is
+## Quick overview
 
-gv-assistant-ultra appears to be a test-heavy Python project for validating assistant/tooling behaviors and heuristics. The repository contains many unit tests (files prefixed with `test_`) and a few media assets (webm) and a small TypeScript spec file.
+gv-assistant-ultra gathers unit tests and utilities used to validate and demonstrate behaviors for assistant systems (tool integration, safety heuristics, upload handling, web fetches, vision/TTS checks, and more). The repository also includes short demo videos (.webm) that showcase UI flows and example interactions.
 
-### Stack
-- Language(s): Python (primary), TypeScript (small utility/spec)
-- Runtime: CPython 3.9+ (typical for modern Python projects)
-- Notable files: many pytest test files (test_*.py), `bombadil-spec.ts` (TypeScript), media assets (*.webm)
+Key highlights
 
-## Quickstart
+- Test-first design: Dozens of pytest files (test_*.py) exercise behaviors and guardrails.
+- Demo assets: chat.webm, gallery.webm, theme.webm, document.webm, notes.webm, research.webm, bg.webm.
+- Small tooling/spec: `bombadil-spec.ts` — a concise TypeScript helper/spec.
+- Standalone utilities: `build_oversized_test_split_plan.py` for experiment orchestration.
 
-1. Clone the repository
+---
 
-   git clone https://github.com/GunjiVenkatesh1326/gv-assistant-ultra.git
-   cd gv-assistant-ultra
+## Demo gallery (local)
 
-2. Create and activate a virtual environment
+Preview the demo files locally or serve them via a tiny static server.
 
-   python -m venv .venv
-   source .venv/bin/activate  # macOS / Linux
-   .venv\Scripts\activate     # Windows (PowerShell: .\.venv\Scripts\Activate.ps1)
+Play a demo directly (choose one):
 
-3. Install dependencies (if you have a requirements file)
+- chat.webm — core chat demo
+- gallery.webm — gallery / thumbnails
+- theme.webm — visual theme showcase
+- document.webm — document handling flow
+- notes.webm — note-taking demo
+- research.webm — longer research walkthrough
 
-   pip install -r requirements.txt
+Open with your OS default video player:
 
-If `requirements.txt` is not present, add dependencies as needed (pytest, typing extensions, etc.).
+macOS: `open chat.webm`
+Linux: `xdg-open chat.webm`
+Windows (PowerShell): `Start-Process chat.webm`
 
-## How to run tests
+Serve and view in browser:
 
-This repository contains many `test_*.py` files intended for pytest. Run the test suite with:
-
-   pytest -q
-
-If you want to run specific tests, use `pytest path/to/test_file.py::test_name`.
-
-## Project structure (top-level)
-
-```
-CNAME                         # (file) custom domain for GitHub Pages
-README.md                      # this file
-*.webm                         # several media demonstration files (bg.webm, chat.webm, ...)
-bombadil-spec.ts               # small TypeScript spec/utility
-build_oversized_test_split_plan.py  # a large Python script
-many test_*.py files           # unit / behavior tests for features
+```bash
+python -m http.server 8000
+# then open http://localhost:8000/chat.webm
 ```
 
-Note: There is no obvious `src/` or package folder at the top-level; tests appear to be the main content.
+Raw file links (direct download):
+- https://raw.githubusercontent.com/GunjiVenkatesh1326/gv-assistant-ultra/main/chat.webm
+- https://raw.githubusercontent.com/GunjiVenkatesh1326/gv-assistant-ultra/main/gallery.webm
 
-## How it fits together
+If you want, I can add an attractive index.html gallery page that embeds these videos and publish it via GitHub Pages.
 
-The repo looks primarily test-driven: the `test_*.py` files exercise behaviors and validate tooling and safety heuristics. The `build_oversized_test_split_plan.py` script is likely a utility used in test-data generation or test planning. `bombadil-spec.ts` suggests a small TypeScript specification or tooling file, while the `.webm` files are probably media assets used for demos or documentation.
+---
+
+## Getting started (developer)
+
+1. Clone:
+
+```bash
+git clone https://github.com/GunjiVenkatesh1326/gv-assistant-ultra.git
+cd gv-assistant-ultra
+```
+
+2. Create a virtual environment and install test dependencies:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate   # macOS / Linux
+.\.venv\Scripts\Activate.ps1  # Windows (PowerShell)
+pip install -U pip
+pip install pytest
+```
+
+3. Run the tests:
+
+```bash
+pytest -q
+```
+
+Notes: A `requirements.txt` is not present; add one if you want reproducible installs for CI.
+
+---
+
+## Project layout (top-level)
+
+```
+CNAME                         # optional GitHub Pages custom domain
+README.md                     # this file (updated)
+*.webm                        # demo media assets
+bombadil-spec.ts              # small TypeScript spec/utility
+build_oversized_test_split_plan.py  # standalone Python utility
+test_*.py                     # pytest files (primary content)
+```
+
+---
+
+## How this repo fits together
+
+There is no packaged `src/` library — tests drive the work. The test files define expected assistant/tool behavior and safety checks; the demo videos show UI/UX flows that correspond to those behaviors. `build_oversized_test_split_plan.py` is a helper script used during experiment preparation.
+
+---
 
 ## Contributing
 
-- Open issues for bugs or feature requests.
-- Add tests alongside any new functionality.
-- Follow conventional commit messages and open pull requests against `main`.
+Contributions are welcome. A good workflow:
+
+1. Open an issue describing the change or feature.
+2. Create a branch named `feat/<short-description>` or `fix/<short-description>`.
+3. Add tests alongside any new behavior.
+4. Submit a PR with a descriptive title and short summary.
+
+Suggested checklist for PRs:
+- Add or update tests for new features.
+- Keep changes small and focused.
+- Include screenshots or short GIFs for UI/demo changes when relevant.
+
+---
 
 ## License
 
-No LICENSE file detected. Add a LICENSE (MIT/Apache-2.0) if you want to make reuse terms explicit.
+No license file is present. If you want permissive reuse, consider adding `LICENSE` with MIT or Apache-2.0.
+
+---
+
+## Want me to do this next?
+
+- I can add an `index.html` gallery embedding the demo videos and commit it.
+- I can create a `requirements.txt` and a GitHub Actions workflow that runs `pytest` on push.
+- I can generate short preview GIFs for the demos and add them to the README.
+
+Tell me which option you prefer and I'll implement it.
